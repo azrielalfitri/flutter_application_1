@@ -12,15 +12,18 @@ class FlutterEmailSender {
   }
 }
 
+//class definition for an Email object
 class Email {
+  //Emaill fields
   final String subject;
   final List<String> recipients;
   final List<String> cc;
   final List<String> bcc;
-  //final List<String> bcc;
   final String body;
   final List<String>? attachmentPaths;
   final bool isHTML;
+
+  //Email default constructor
   Email({
     this.subject = '',
     this.recipients = const [],
@@ -31,6 +34,7 @@ class Email {
     this.isHTML = false,
   });
 
+  //method to translate email to a JSON to be sent
   Map<String, dynamic> toJson() {
     return {
       'subject': subject,

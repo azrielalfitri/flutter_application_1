@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Main function that Flutter runs first
 void main() {
   runApp(const MainApp());
 }
@@ -47,6 +48,8 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+
+//
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
