@@ -4,8 +4,7 @@ import 'package:flutter/services.dart';
 // import 'package:flutter/material.dart';
 
 class FlutterEmailSender {
-  static const MethodChannel _channel =
-      const MethodChannel('flutter_email_sender');
+  static const MethodChannel _channel = MethodChannel('flutter_email_sender');
 
   static Future<void> send(Email mail) {
     return _channel.invokeMethod('send', mail.toJson());
