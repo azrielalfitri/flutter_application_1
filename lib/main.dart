@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'circulardropdownmenu.dart';
 
 // Main function that Flutter runs first
 void main() {
@@ -12,24 +13,22 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      //Title of the App
+      title: 'What is the name of your app?',
+
+      // Theme of the App
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+
+      // Home widget of the App
+      //home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: TeacherDropDownMenu(),
     );
   }
 }
 
+/*
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -47,7 +46,6 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
 
 //
 class _MyHomePageState extends State<MyHomePage> {
@@ -116,3 +114,128 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+*/
+
+class TeacherDropDownMenu extends StatefulWidget {
+  @override
+  _TeacherDropDownMenuState createState() => _TeacherDropDownMenuState();
+}
+
+class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
+  String _coachingLevel = 'Education Level';
+
+  @override
+  Widget build(BuildContext context) {
+    //Store a list of all the teacher names + emails
+    var list = [
+      {'id': "1", 'name': "Bianchi", "email": "JBianchi@energytechhs.org"},
+      {'id': "2", 'name': "Azriel", "email": "aalfitri@etech-nyc.org"},
+      {'id': "3", 'name': "Justin", "email": "jhuang@etech-nyc.org"},
+    ];
+
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 20),
+          child: Column(
+            children: <Widget>[
+              //Constructing a CDDM
+              CircularDropDownMenu(
+                //Define field #2
+                dropDownMenuItem: [
+                  //Loop through all the items in the list
+                  for (var item in list)
+
+                    //Generate a DDMI for each item
+                    DropdownMenuItem(
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Text(item['name'].toString()),
+                      ),
+                      value: 'School',
+                    ),
+
+                  // DropdownMenuItem(
+                  //   child: GestureDetector(
+                  //     onTap: () {},
+                  //     child: Text('Collage9'),
+                  //   ),
+                  //   value: 'Collage',
+                  // ),
+
+                  // DropdownMenuItem(
+                  //   child: GestureDetector(
+                  //     onTap: () {},
+                  //     child: Text('Graduated'),
+                  //   ),
+                  //   value: 'Graduated',
+                  // ),
+                ],
+
+                //defining CDDM field #1
+                onChanged: (value) {
+                  setState(() {
+                    _coachingLevel = value;
+                  });
+                },
+
+                //defining CDDM field #3
+                hintText: _coachingLevel,
+              ),
+            ],
+          ),
+        ),
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: null, //_incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+
+
+/*
+Widget build(BuildContext context) {
+
+var list = [{'id':"123123","date":"20/08/2016"},{'id':"123124","date":"26/08/2016"},{'id':"123125","date":"26/08/2016"}]; 
+  
+  return Scaffold(
+
+  body: Center(
+    child: Column(
+
+      children: <Widget>[
+
+
+        Text('Recent Claims'),
+
+        Table(
+
+          border: TableBorder.all(color: Colors.black),
+
+          columnWidths: {
+            0: FixedColumnWidth(100.0),
+            1: FixedColumnWidth(100.0)
+          },
+
+          children:[
+
+
+            for(var item in list )
+
+              TableRow(
+                children: [
+                  Text(item['id']),
+                  Text(item['date']),
+                ]
+              )
+          ]
+
+        ),
+      }
+
+      */

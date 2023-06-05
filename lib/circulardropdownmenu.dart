@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 
+//CDDM class
 class CircularDropDownMenu extends StatefulWidget {
+  //CDDM fields
   final String hintText;
   final List<DropdownMenuItem> dropDownMenuItem;
   final dynamic onChanged;
+
+  //CDDM constructor
   const CircularDropDownMenu({
     required this.onChanged,
     required this.dropDownMenuItem,
     required this.hintText,
   });
+
+  //CDDM function createState()
   @override
   _CircularDropDownMenuState createState() => _CircularDropDownMenuState();
 }
 
+//CDDMS class describes the state of a CDDM object
 class _CircularDropDownMenuState extends State<CircularDropDownMenu> {
+  //required build() function
   @override
   Widget build(BuildContext context) {
     return Container(
