@@ -152,7 +152,7 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
                         onTap: () {},
                         child: Text(item['name'].toString()),
                       ),
-                      value: 'School',
+                      value: item["email"].toString(),
                     ),
 
                   // DropdownMenuItem(
@@ -189,7 +189,7 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: null, //_incrementCounter,
-        tooltip: 'Increment',
+        tooltip: 'Send!',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
