@@ -1,6 +1,37 @@
 import 'package:flutter/material.dart';
 import 'circulardropdownmenu.dart';
 
+// import 'package:csv/csv.dart';
+// import 'package:flutter/services.dart' show rootBundle;
+
+//  List<List<dynamic>> data = [];
+//   loadAsset() async {
+//     final myData = await rootBundle.loadString("assets/Book1.csv");
+//     List<List<dynamic>> csvTable = CsvToListConverter().convert(myData);
+
+//     data = csvTable;
+//     print(data);
+
+// SingleChildScrollView(
+//               child: Table(
+//                 border: TableBorder.all(width: 1.0),
+//                 children: data.map((item) {
+//                   return TableRow(
+//                       children: item.map((row) {
+//                     return Container(
+//                       child: Padding(
+//                         padding: const EdgeInsets.all(8.0),
+//                         child: Text(
+//                           row.toString(),
+//                         ),
+//                       ),
+//                     );
+//                   }).toList());
+//                 }).toList(),
+//               ),
+//             ),
+//https://stackoverflow.com/questions/64191203/how-to-show-or-load-data-from-csv-file-into-list-in-flutter
+
 // Main function that Flutter runs first
 void main() {
   runApp(const MainApp());
