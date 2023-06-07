@@ -13,6 +13,9 @@ dependencies:
   mailer: ^5.0.1
 
   google_sign_in: ^5.0.4
+  csv: ^5.0.2
+
+  
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +24,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+assets:
+  assets/teacheremails.csv
