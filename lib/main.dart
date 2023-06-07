@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'circulardropdownmenu.dart';
+import 'package:csv/csv.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
-// import 'package:csv/csv.dart';
-// import 'package:flutter/services.dart' show rootBundle;
+List<List<dynamic>> data = [];
+  loadAsset() async {
+     final myData = await rootBundle.loadString("assets/teacheremails.csv");
+     List<List<dynamic>> csvTable = CsvToListConverter().convert(myData);
 
-//  List<List<dynamic>> data = [];
-//   loadAsset() async {
-//     final myData = await rootBundle.loadString("assets/Book1.csv");
-//     List<List<dynamic>> csvTable = CsvToListConverter().convert(myData);
-
-//     data = csvTable;
-//     print(data);
+     data = csvTable;
+     print(data);
 
 // SingleChildScrollView(
 //               child: Table(
