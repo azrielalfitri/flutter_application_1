@@ -24,6 +24,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-assets:
-  assets/teacheremails.csv
+  assets:
+   - assets/teacheremails.csv

@@ -4,12 +4,13 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 List<List<dynamic>> data = [];
-  loadAsset() async {
-     final myData = await rootBundle.loadString("assets/teacheremails.csv");
-     List<List<dynamic>> csvTable = CsvToListConverter().convert(myData);
+loadAsset() async {
+  final myData = await rootBundle.loadString("assets/teacheremails.csv");
+  List<List<dynamic>> csvTable = CsvToListConverter().convert(myData);
 
-     data = csvTable;
-     print(data);
+  data = csvTable;
+  print(data);
+}
 
 // SingleChildScrollView(
 //               child: Table(
@@ -33,7 +34,13 @@ List<List<dynamic>> data = [];
 
 // Main function that Flutter runs first
 void main() {
+  print("Hi");
+  // loadAsset();
+
   runApp(const MainApp());
+
+  print('Hello');
+  loadAsset();
 }
 
 class MainApp extends StatelessWidget {
