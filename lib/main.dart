@@ -182,8 +182,29 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
   ];
 
   @override
+<<<<<<< HEAD
   Widget build(BuildContext context) 
     => Scaffold(
+=======
+  Widget build(BuildContext context) {
+    //Store a list of all the teacher names + emails
+
+    List<List<dynamic>> list = [];
+    loadAsset() async {
+      final myData = await rootBundle.loadString("assets/teacheremails.csv");
+      List<List<dynamic>> csvTable = CsvToListConverter().convert(myData);
+
+      list = csvTable;
+    }
+
+    // var list = [
+    //   {'id': "1", 'name': "Bianchi", "email": "JBianchi@energytechhs.org"},
+    //   {'id': "2", 'name': "Azriel", "email": "aalfitri@etech-nyc.org"},
+    //   {'id': "3", 'name': "Justin", "email": "jhuang@etech-nyc.org"},
+    // ];
+
+    return Scaffold(
+>>>>>>> 0e50ec5 (thrbtobehtbe)
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 20),
@@ -202,7 +223,7 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
                         onTap: () {},
                         child: Text(item['name'].toString()),
                       ),
-                      value: item["email"].toString(),
+                      value: item['email'].toString(),
                     ),
 
                   // DropdownMenuItem(
