@@ -2,6 +2,17 @@ import 'package:flutter/material.dart';
 import 'circulardropdownmenu.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+
+import 'dart:convert';
+import 'dart:io';
 
 List<List<dynamic>> data = [];
 loadAsset() async {
@@ -9,7 +20,8 @@ loadAsset() async {
   List<List<dynamic>> csvTable = CsvToListConverter().convert(myData);
 
   data = csvTable;
-  print(data);
+  print(data); 
+
 }
 
 // SingleChildScrollView(
@@ -162,17 +174,16 @@ class TeacherDropDownMenu extends StatefulWidget {
 
 class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
   String _coachingLevel = 'Education Level';
+  //Store a list of all the teacher names + emails
+  var list = [
+    {'id': "1", 'name': "Bianchi", "email": "JBianchi@energytechhs.org"},
+    {'id': "2", 'name': "Azriel", "email": "aalfitri@etech-nyc.org"},
+    {'id': "3", 'name': "Justin", "email": "jhuang@etech-nyc.org"},
+  ];
 
   @override
-  Widget build(BuildContext context) {
-    //Store a list of all the teacher names + emails
-    var list = [
-      {'id': "1", 'name': "Bianchi", "email": "JBianchi@energytechhs.org"},
-      {'id': "2", 'name': "Azriel", "email": "aalfitri@etech-nyc.org"},
-      {'id': "3", 'name': "Justin", "email": "jhuang@etech-nyc.org"},
-    ];
-
-    return Scaffold(
+  Widget build(BuildContext context) 
+    => Scaffold(
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 20),
@@ -232,7 +243,54 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
-  }
+
+    Future sendEmail({
+      required String name,
+      required String email,
+      required String subject,
+      required String message,
+    }) async {
+
+      final serviceId = 'service_4xyn2c1';
+      final templateId = 'template_h67x7ym';
+      final userId = 'oUIoW42xemMxh_sfI';
+
+
+      final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+      
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'service_id': serviceId,
+          'template_id': templateId,
+          'user_id' :userId,
+          'template_params': {
+            'user_name': name,
+            'user_email': email,
+            'user_subject': subject,
+            'user_message': message,
+        
+          },
+        }
+
+        )
+      print(response.body);
+
+    }
+
+    Widget buildTextField({
+      required String title,
+      required TextEditingController controller,
+      int maxLines = 1,
+    })
+
+
+
+    
+  }// ends build function.
 }
 
 
