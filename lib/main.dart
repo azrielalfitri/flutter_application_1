@@ -173,38 +173,25 @@ class TeacherDropDownMenu extends StatefulWidget {
 }
 
 class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
-  String _coachingLevel = 'Education Level';
+  int _teacherIndex = -1;
   //Store a list of all the teacher names + emails
-  var list = [
-    {'id': "1", 'name': "Bianchi", "email": "JBianchi@energytechhs.org"},
-    {'id': "2", 'name': "Azriel", "email": "aalfitri@etech-nyc.org"},
-    {'id': "3", 'name': "Justin", "email": "jhuang@etech-nyc.org"},
-  ];
+  // var list = [
+  //   {'id': "1", 'name': "Bianchi", "email": "JBianchi@energytechhs.org"},
+  //   {'id': "2", 'name': "Azriel", "email": "aalfitri@etech-nyc.org"},
+  //   {'id': "3", 'name': "Justin", "email": "jhuang@etech-nyc.org"},
+  // ];
+  List<List<dynamic>> list = [];
+  loadAsset() async {
+    final myData = await rootBundle.loadString("assets/teacheremails.csv");
+    List<List<dynamic>> csvTable = CsvToListConverter().convert(myData);
+
+    list = csvTable;
+  }
 
   @override
-<<<<<<< HEAD
   Widget build(BuildContext context) 
     => Scaffold(
-=======
-  Widget build(BuildContext context) {
-    //Store a list of all the teacher names + emails
 
-    List<List<dynamic>> list = [];
-    loadAsset() async {
-      final myData = await rootBundle.loadString("assets/teacheremails.csv");
-      List<List<dynamic>> csvTable = CsvToListConverter().convert(myData);
-
-      list = csvTable;
-    }
-
-    // var list = [
-    //   {'id': "1", 'name': "Bianchi", "email": "JBianchi@energytechhs.org"},
-    //   {'id': "2", 'name': "Azriel", "email": "aalfitri@etech-nyc.org"},
-    //   {'id': "3", 'name': "Justin", "email": "jhuang@etech-nyc.org"},
-    // ];
-
-    return Scaffold(
->>>>>>> 0e50ec5 (thrbtobehtbe)
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 20),
@@ -215,15 +202,15 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
                 //Define field #2
                 dropDownMenuItem: [
                   //Loop through all the items in the list
-                  for (var item in list)
-
+                  for (var teacher in list)
+                    
                     //Generate a DDMI for each item
                     DropdownMenuItem(
                       child: GestureDetector(
                         onTap: () {},
-                        child: Text(item['name'].toString()),
+                        child: Text(teacher[1].toString()),
                       ),
-                      value: item['email'].toString(),
+                      value: teacher[0].toString(),
                     ),
 
                   // DropdownMenuItem(
@@ -246,12 +233,12 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
                 //defining CDDM field #1
                 onChanged: (value) {
                   setState(() {
-                    _coachingLevel = value;
+                    _teacherIndex = value;
                   });
                 },
 
                 //defining CDDM field #3
-                hintText: _coachingLevel,
+                hintText: "hint text?",
               ),
             ],
           ),
@@ -272,6 +259,7 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
       required String message,
     }) async {
 
+      email = list[_teacherIndex][2];
       final serviceId = 'service_4xyn2c1';
       final templateId = 'template_h67x7ym';
       final userId = 'oUIoW42xemMxh_sfI';
