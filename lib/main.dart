@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
+
 import 'circulardropdownmenu.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
 
 
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
-import 'dart:io';
+
 
 List<List<dynamic>> data = [];
 loadAsset() async {
@@ -20,8 +18,7 @@ loadAsset() async {
   List<List<dynamic>> csvTable = CsvToListConverter().convert(myData);
 
   data = csvTable;
-  print(data); 
-
+  print(data);
 }
 
 // SingleChildScrollView(
@@ -188,69 +185,66 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
     list = csvTable;
   }
 
-  @override
-  Widget build(BuildContext context) 
-    => Scaffold(
+  Widget build(BuildContext context) => Scaffold(
+        body: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 20),
+            child: Column(
+              children: <Widget>[
+                //Constructing a CDDM
+                CircularDropDownMenu(
+                  //Define field #2
+                  dropDownMenuItem: [
+                    //Loop through all the items in the list
+                    for (var teacher in list)
 
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 20),
-          child: Column(
-            children: <Widget>[
-              //Constructing a CDDM
-              CircularDropDownMenu(
-                //Define field #2
-                dropDownMenuItem: [
-                  //Loop through all the items in the list
-                  for (var teacher in list)
-                    
-                    //Generate a DDMI for each item
-                    DropdownMenuItem(
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Text(teacher[1].toString()),
+                      //Generate a DDMI for each item
+                      DropdownMenuItem(
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Text(teacher[1].toString()),
+                        ),
+                        value: teacher[0].toString(),
                       ),
-                      value: teacher[0].toString(),
-                    ),
 
-                  // DropdownMenuItem(
-                  //   child: GestureDetector(
-                  //     onTap: () {},
-                  //     child: Text('Collage9'),
-                  //   ),
-                  //   value: 'Collage',
-                  // ),
+                    // DropdownMenuItem(
+                    //   child: GestureDetector(
+                    //     onTap: () {},
+                    //     child: Text('Collage9'),
+                    //   ),
+                    //   value: 'Collage',
+                    // ),
 
-                  // DropdownMenuItem(
-                  //   child: GestureDetector(
-                  //     onTap: () {},
-                  //     child: Text('Graduated'),
-                  //   ),
-                  //   value: 'Graduated',
-                  // ),
-                ],
+                    // DropdownMenuItem(
+                    //   child: GestureDetector(
+                    //     onTap: () {},
+                    //     child: Text('Graduated'),
+                    //   ),
+                    //   value: 'Graduated',
+                    // ),
+                  ],
 
-                //defining CDDM field #1
-                onChanged: (value) {
-                  setState(() {
-                    _teacherIndex = value;
-                  });
-                },
+                  //defining CDDM field #1
+                  onChanged: (value) {
+                    setState(() {
+                      _teacherIndex = value;
+                    });
+                  },
 
-                //defining CDDM field #3
-                hintText: "hint text?",
-              ),
-            ],
+                  //defining CDDM field #3
+                  hintText: "test",
+                ),
+              ],
+            ),
           ),
         ),
-      ),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: null, //_incrementCounter,
-        tooltip: 'Send!',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: sendEmail(email: list[_teacherIndex][2], name: list[_teacherIndex][1], subject: 'subject', message: 'message');
+                    tooltip: 'Send!',
+          child: const Icon(Icons.add),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
+      );
 
     Future sendEmail({
       required String name,
@@ -264,9 +258,8 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
       final templateId = 'template_h67x7ym';
       final userId = 'oUIoW42xemMxh_sfI';
 
-
       final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
-      
+
       final response = await http.post(
         url,
         headers: {
@@ -277,11 +270,11 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
           'template_id': templateId,
           'user_id' :userId,
           'template_params': {
-            'user_name': name,
-            'user_email': email,
+          list[_teacherIndex][1]: name,
+          list[_teacherIndex][2]: email,
             'user_subject': subject,
             'user_message': message,
-        
+
           },
         }
 
@@ -296,26 +289,20 @@ class _TeacherDropDownMenuState extends State<TeacherDropDownMenu> {
       int maxLines = 1,
     })
 
-
-
-    
   }// ends build function.
-}
-
 
 
 /*
 Widget build(BuildContext context) {
 
-var list = [{'id':"123123","date":"20/08/2016"},{'id':"123124","date":"26/08/2016"},{'id':"123125","date":"26/08/2016"}]; 
-  
+var list = [{'id':"123123","date":"20/08/2016"},{'id':"123124","date":"26/08/2016"},{'id':"123125","date":"26/08/2016"}];
+
   return Scaffold(
 
   body: Center(
     child: Column(
 
       children: <Widget>[
-
 
         Text('Recent Claims'),
 
@@ -330,7 +317,6 @@ var list = [{'id':"123123","date":"20/08/2016"},{'id':"123124","date":"26/08/201
 
           children:[
 
-
             for(var item in list )
 
               TableRow(
@@ -344,4 +330,5 @@ var list = [{'id':"123123","date":"20/08/2016"},{'id':"123124","date":"26/08/201
         ),
       }
 
-      */
+//       */
+
